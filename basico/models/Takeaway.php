@@ -8,9 +8,8 @@ use Yii;
  * This is the model class for table "takeaway".
  *
  * @property int $id_takeaway
- * @property float|null $valor
- * @property int|null $id_cliente
- * @property int|null $id_prato
+ * @property int $id_cliente
+ * @property int $id_prato
  *
  * @property Cliente $cliente
  * @property Prato $prato
@@ -31,7 +30,7 @@ class Takeaway extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['valor'], 'number'],
+            [['id_cliente', 'id_prato'], 'required'],
             [['id_cliente', 'id_prato'], 'integer'],
             [['id_cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['id_cliente' => 'id_cliente']],
             [['id_prato'], 'exist', 'skipOnError' => true, 'targetClass' => Prato::className(), 'targetAttribute' => ['id_prato' => 'id_prato']],
@@ -45,7 +44,6 @@ class Takeaway extends \yii\db\ActiveRecord
     {
         return [
             'id_takeaway' => 'Id Takeaway',
-            'valor' => 'Valor',
             'id_cliente' => 'Id Cliente',
             'id_prato' => 'Id Prato',
         ];

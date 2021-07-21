@@ -18,8 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'precovenda')->textInput() ?>
 
-    <?= $form->field($model, 'quantidade')->textInput() ?>
-
     <?= $form->field($model, 'image')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">

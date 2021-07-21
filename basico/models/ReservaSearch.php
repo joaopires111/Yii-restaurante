@@ -18,6 +18,7 @@ class ReservaSearch extends Reserva
     {
         return [
             [['id_reserva', 'num_pessoas', 'id_cliente', 'id_mesa'], 'integer'],
+            [['hora'], 'safe'],
         ];
     }
 
@@ -61,6 +62,7 @@ class ReservaSearch extends Reserva
             'num_pessoas' => $this->num_pessoas,
             'id_cliente' => $this->id_cliente,
             'id_mesa' => $this->id_mesa,
+            'hora' => $this->hora,
         ]);
 
         return $dataProvider;

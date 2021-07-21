@@ -13,7 +13,7 @@ use Yii;
  * @property int|null $nif
  * @property string|null $rua
  * @property int|null $nporta
- * @property string|null $codpostal
+ * @property string $codpostal
  * @property int|null $telefone
  * @property string|null $email
  * @property float|null $salario
@@ -37,6 +37,7 @@ class Funcionario extends \yii\db\ActiveRecord
     {
         return [
             [['nif', 'nporta', 'telefone'], 'integer'],
+            [['codpostal'], 'required'],
             [['salario'], 'number'],
             [['prinome', 'ultnome'], 'string', 'max' => 50],
             [['rua', 'email'], 'string', 'max' => 20],

@@ -17,7 +17,7 @@ class PratoSearch extends Prato
     public function rules()
     {
         return [
-            [['id_prato', 'quantidade'], 'integer'],
+            [['id_prato'], 'integer'],
             [['nome', 'image'], 'safe'],
             [['precocusto', 'precovenda'], 'number'],
         ];
@@ -62,7 +62,6 @@ class PratoSearch extends Prato
             'id_prato' => $this->id_prato,
             'precocusto' => $this->precocusto,
             'precovenda' => $this->precovenda,
-            'quantidade' => $this->quantidade,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])

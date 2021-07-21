@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id_mesa
  * @property int|null $capacidade
- * @property string|null $status
+ * @property string $status
  *
  * @property Reserva[] $reservas
  */

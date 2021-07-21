@@ -18,7 +18,7 @@ class ClienteSearch extends Cliente
     {
         return [
             [['id_cliente', 'nif', 'nporta', 'telefone'], 'integer'],
-            [['prinome', 'ultnome', 'rua', 'codpostal', 'email'], 'safddde'],
+            [['prinome', 'ultnome', 'rua', 'codpostal', 'email'], 'safe'],
         ];
     }
 

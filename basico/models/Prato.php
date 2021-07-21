@@ -11,7 +11,6 @@ use Yii;
  * @property string|null $nome
  * @property float|null $precocusto
  * @property float|null $precovenda
- * @property int|null $quantidade
  * @property string|null $image
  *
  * @property Takeaway[] $takeaways
@@ -33,7 +32,6 @@ class Prato extends \yii\db\ActiveRecord
     {
         return [
             [['precocusto', 'precovenda'], 'number'],
-            [['quantidade'], 'integer'],
             [['image'], 'string'],
             [['nome'], 'string', 'max' => 20],
         ];
@@ -49,7 +47,6 @@ class Prato extends \yii\db\ActiveRecord
             'nome' => 'Nome',
             'precocusto' => 'Precocusto',
             'precovenda' => 'Precovenda',
-            'quantidade' => 'Quantidade',
             'image' => 'Image',
         ];
     }

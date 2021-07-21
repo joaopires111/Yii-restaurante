@@ -9,8 +9,9 @@ use Yii;
  *
  * @property int $id_reserva
  * @property int|null $num_pessoas
- * @property int|null $id_cliente
- * @property int|null $id_mesa
+ * @property int $id_cliente
+ * @property int $id_mesa
+ * @property string $hora
  *
  * @property Cliente $cliente
  * @property Mesa $mesa
@@ -32,6 +33,8 @@ class Reserva extends \yii\db\ActiveRecord
     {
         return [
             [['num_pessoas', 'id_cliente', 'id_mesa'], 'integer'],
+            [['id_cliente', 'id_mesa'], 'required'],
+            [['hora'], 'safe'],
             [['id_cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['id_cliente' => 'id_cliente']],
             [['id_mesa'], 'exist', 'skipOnError' => true, 'targetClass' => Mesa::className(), 'targetAttribute' => ['id_mesa' => 'id_mesa']],
         ];
@@ -47,6 +50,7 @@ class Reserva extends \yii\db\ActiveRecord
             'num_pessoas' => 'Num Pessoas',
             'id_cliente' => 'Id Cliente',
             'id_mesa' => 'Id Mesa',
+            'hora' => 'Hora',
         ];
     }
 

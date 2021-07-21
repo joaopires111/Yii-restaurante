@@ -18,7 +18,6 @@ class TakeawaySearch extends Takeaway
     {
         return [
             [['id_takeaway', 'id_cliente', 'id_prato'], 'integer'],
-            [['valor'], 'number'],
         ];
     }
 
@@ -59,7 +58,6 @@ class TakeawaySearch extends Takeaway
         // grid filtering conditions
         $query->andFilterWhere([
             'id_takeaway' => $this->id_takeaway,
-            'valor' => $this->valor,
             'id_cliente' => $this->id_cliente,
             'id_prato' => $this->id_prato,
         ]);

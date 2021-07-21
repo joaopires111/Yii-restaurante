@@ -38,6 +38,7 @@ class Cliente extends \yii\db\ActiveRecord
     {
         return [
             [['nif', 'nporta', 'telefone'], 'integer'],
+            [['codpostal'], 'required'],
             [['prinome', 'ultnome', 'email'], 'string', 'max' => 20],
             [['rua'], 'string', 'max' => 50],
             [['codpostal'], 'string', 'max' => 10],

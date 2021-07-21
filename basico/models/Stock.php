@@ -11,8 +11,8 @@ use Yii;
  * @property string|null $nome
  * @property int|null $quantidade
  * @property float|null $preco
- * @property string|null $validade
- * @property int|null $id_fornecedor
+ * @property string $validade
+ * @property int $id_fornecedor
  *
  * @property Fornecedor $fornecedor
  */
@@ -35,6 +35,7 @@ class Stock extends \yii\db\ActiveRecord
             [['quantidade', 'id_fornecedor'], 'integer'],
             [['preco'], 'number'],
             [['validade'], 'safe'],
+            [['id_fornecedor'], 'required'],
             [['nome'], 'string', 'max' => 10],
             [['id_fornecedor'], 'exist', 'skipOnError' => true, 'targetClass' => Fornecedor::className(), 'targetAttribute' => ['id_fornecedor' => 'id_fornecedor']],
         ];

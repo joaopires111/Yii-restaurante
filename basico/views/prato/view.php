@@ -7,7 +7,6 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Prato */
 
 $this->title = $model->id_prato;
-$image= $model->image;
 $this->params['breadcrumbs'][] = ['label' => 'Pratos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -27,8 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <p><img src="<?php echo $image?>"></p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -36,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nome',
             'precocusto',
             'precovenda',
-            'quantidade',
+            'image:ntext',
         ],
     ]) ?>
 

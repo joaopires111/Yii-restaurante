@@ -11,7 +11,7 @@ use Yii;
  * @property string|null $nome
  * @property string|null $rua
  * @property int|null $nporta
- * @property string|null $codpostal
+ * @property string $codpostal
  * @property int|null $telefone
  *
  * @property Codpostal $codpostal0
@@ -34,6 +34,7 @@ class Fornecedor extends \yii\db\ActiveRecord
     {
         return [
             [['nporta', 'telefone'], 'integer'],
+            [['codpostal'], 'required'],
             [['nome'], 'string', 'max' => 20],
             [['rua'], 'string', 'max' => 100],
             [['codpostal'], 'string', 'max' => 10],
