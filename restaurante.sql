@@ -24,35 +24,36 @@ CREATE TABLE IF NOT EXISTS `backenduser` (
   `lastname` varchar(30) DEFAULT NULL,
   `username` varchar(35) DEFAULT NULL,
   `password` varchar(35) DEFAULT NULL,
-  `Cargo` varchar(30) DEFAULT NULL,
+  `cargo` enum('gerente','funcionario','cozinheiro') DEFAULT 'funcionario',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela restaurante.backenduser: ~4 rows (aproximadamente)
+-- A despejar dados para tabela restaurante.backenduser: ~5 rows (aproximadamente)
 DELETE FROM `backenduser`;
 /*!40000 ALTER TABLE `backenduser` DISABLE KEYS */;
-INSERT INTO `backenduser` (`id`, `firstname`, `lastname`, `username`, `password`, `Cargo`) VALUES
+INSERT INTO `backenduser` (`id`, `firstname`, `lastname`, `username`, `password`, `cargo`) VALUES
 	(1, 'João', 'Pires', 'admin', 'admin', 'gerente'),
-	(2, 'Manuel', 'G.', 'cozinha', 'cozinha', 'cozinheiro'),
-	(3, 'Pedro', 'S.', 'empregado', 'empregado', 'empregado'),
-	(4, 'J.', 'Alberto', 'jocasalb', 'joc', 'cliente');
+	(2, 'Manuel', 'G.', 'cozinheiro', 'cozinheiro', 'cozinheiro'),
+	(3, 'Pedro', 'S.', 'funcionario', 'funcionario', 'funcionario'),
+	(7, 'Manel', 'Joq', 'cliente', '', 'gerente'),
+	(8, '', '', '', '', 'gerente');
 /*!40000 ALTER TABLE `backenduser` ENABLE KEYS */;
 
 -- A despejar estrutura para tabela restaurante.cliente
 CREATE TABLE IF NOT EXISTS `cliente` (
-  `id_cliente` int(1) NOT NULL,
-  `prinome` varchar(100) DEFAULT NULL,
-  `ultnome` varchar(100) DEFAULT NULL,
+  `id_cliente` int(1) NOT NULL AUTO_INCREMENT,
+  `prinome` varchar(20) DEFAULT NULL,
+  `ultnome` varchar(20) DEFAULT NULL,
   `nif` bigint(20) DEFAULT 0,
-  `rua` varchar(100) DEFAULT NULL,
+  `rua` varchar(50) DEFAULT NULL,
   `nporta` int(20) DEFAULT NULL,
-  `codpostal` varchar(10) DEFAULT NULL,
+  `codpostal` varchar(10) NOT NULL,
   `telefone` int(11) DEFAULT 0,
   `email` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
   KEY `FK_cliente_codpostal` (`codpostal`),
   CONSTRAINT `FK_cliente_codpostal` FOREIGN KEY (`codpostal`) REFERENCES `codpostal` (`codpostal`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3;
 
 -- A despejar dados para tabela restaurante.cliente: ~3 rows (aproximadamente)
 DELETE FROM `cliente`;
@@ -82,142 +83,157 @@ INSERT INTO `codpostal` (`codpostal`, `localidade`) VALUES
 
 -- A despejar estrutura para tabela restaurante.fornecedor
 CREATE TABLE IF NOT EXISTS `fornecedor` (
-  `id_fornecedor` int(10) NOT NULL,
+  `id_fornecedor` int(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(20) DEFAULT NULL,
   `rua` varchar(100) DEFAULT NULL,
   `nporta` int(10) DEFAULT NULL,
-  `codpostal` varchar(10) DEFAULT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
+  `codpostal` varchar(10) NOT NULL,
+  `telefone` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_fornecedor`) USING BTREE,
-  KEY `FK_fornecedor_codpostal` (`codpostal`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  KEY `FK_fornecedor_codpostal` (`codpostal`),
+  CONSTRAINT `FK_fornecedor_codpostal` FOREIGN KEY (`codpostal`) REFERENCES `codpostal` (`codpostal`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- A despejar dados para tabela restaurante.fornecedor: ~2 rows (aproximadamente)
+-- A despejar dados para tabela restaurante.fornecedor: ~1 rows (aproximadamente)
 DELETE FROM `fornecedor`;
 /*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
 INSERT INTO `fornecedor` (`id_fornecedor`, `nome`, `rua`, `nporta`, `codpostal`, `telefone`) VALUES
-	(1, 'Carnes lda', 'Rua do Fornecedor', 55, '4100-450', '965783452'),
-	(2, 'Laticinios', 'Rua do Fornecedor2', 22, '4100-450', '961111222');
+	(1, 'Talho do lima', 'Rua do lima', 72, '4100-450', 910000000);
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 
 -- A despejar estrutura para tabela restaurante.funcionario
 CREATE TABLE IF NOT EXISTS `funcionario` (
-  `id_funcionario` int(10) NOT NULL,
+  `id_funcionario` int(10) NOT NULL AUTO_INCREMENT,
   `prinome` varchar(50) DEFAULT '0',
   `ultnome` varchar(50) DEFAULT '0',
   `nif` int(10) DEFAULT NULL,
   `rua` varchar(20) DEFAULT NULL,
-  `nporta` varchar(20) DEFAULT NULL,
-  `codpostal` varchar(10) DEFAULT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
+  `nporta` int(11) DEFAULT NULL,
+  `codpostal` varchar(10) NOT NULL,
+  `telefone` int(11) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
-  `salario` int(10) DEFAULT NULL,
+  `salario` float DEFAULT NULL,
   PRIMARY KEY (`id_funcionario`),
   KEY `FK_funcionario_codpostal` (`codpostal`),
   CONSTRAINT `FK_funcionario_codpostal` FOREIGN KEY (`codpostal`) REFERENCES `codpostal` (`codpostal`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 -- A despejar dados para tabela restaurante.funcionario: ~2 rows (aproximadamente)
 DELETE FROM `funcionario`;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
 INSERT INTO `funcionario` (`id_funcionario`, `prinome`, `ultnome`, `nif`, `rua`, `nporta`, `codpostal`, `telefone`, `email`, `salario`) VALUES
-	(1, 'Gonçalo', 'Antunes', 2000000000, 'Rua da frente', '41', '4100-450', '961549203', 'gon@gmail.com', 2100),
-	(2, 'Bianca', 'Branca', 1000000000, 'Rua do lado', '41', '4100-450', '961900876', 'bia@gmail.com', 300);
+	(1, 'Gonçalo', 'Antunes', 2000000000, 'Rua da frente', 41, '4100-450', 910000000, 'gon@gmail.com', 2100),
+	(2, 'Bianca', 'Branca', 1000000000, 'Rua do lado', 41, '4100-450', 101111111, 'bia@gmail.com', 300);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+
+-- A despejar estrutura para tabela restaurante.mesa
+CREATE TABLE IF NOT EXISTS `mesa` (
+  `id_mesa` int(10) NOT NULL AUTO_INCREMENT,
+  `capacidade` smallint(6) DEFAULT 4,
+  `status` enum('reservado','ocupado','livre') NOT NULL DEFAULT 'livre',
+  PRIMARY KEY (`id_mesa`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+-- A despejar dados para tabela restaurante.mesa: ~8 rows (aproximadamente)
+DELETE FROM `mesa`;
+/*!40000 ALTER TABLE `mesa` DISABLE KEYS */;
+INSERT INTO `mesa` (`id_mesa`, `capacidade`, `status`) VALUES
+	(1, 4, 'reservado'),
+	(2, 2, 'livre'),
+	(3, 4, 'livre'),
+	(4, 4, 'livre'),
+	(5, 4, 'ocupado'),
+	(6, 4, 'livre'),
+	(7, 4, 'livre'),
+	(8, 4, 'livre');
+/*!40000 ALTER TABLE `mesa` ENABLE KEYS */;
 
 -- A despejar estrutura para tabela restaurante.prato
 CREATE TABLE IF NOT EXISTS `prato` (
-  `id_prato` int(10) NOT NULL,
+  `id_prato` int(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(20) DEFAULT NULL,
-  `precocusto` varchar(20) DEFAULT NULL,
-  `precovenda` varchar(20) DEFAULT NULL,
-  `quantidade` int(10) DEFAULT NULL,
+  `precocusto` float DEFAULT NULL,
+  `precovenda` float DEFAULT NULL,
+  `image` tinytext DEFAULT NULL,
   PRIMARY KEY (`id_prato`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
--- A despejar dados para tabela restaurante.prato: ~3 rows (aproximadamente)
+-- A despejar dados para tabela restaurante.prato: ~4 rows (aproximadamente)
 DELETE FROM `prato`;
 /*!40000 ALTER TABLE `prato` DISABLE KEYS */;
-INSERT INTO `prato` (`id_prato`, `nome`, `precocusto`, `precovenda`, `quantidade`) VALUES
-	(0, 'Lasagna', '15', '16.99', 30),
-	(1, 'Almondegas', '12', '15', 10),
-	(2, 'Arroz de cabidela', '8', '10', 20);
+INSERT INTO `prato` (`id_prato`, `nome`, `precocusto`, `precovenda`, `image`) VALUES
+	(1, 'Almondegas', 12, 20, 'https://t2.rg.ltmcdn.com/pt/images/7/9/9/img_almondegas_com_farinha_integral_4997_orig.jpg'),
+	(2, 'Arroz de cabidela', 8, 10, 'https://www.petiscos.com/wp-content/uploads/2020/04/113cc66c849c5b1f028704d20a9e62ad6_cabidela_galinha-678x470.jpg'),
+	(3, 'Lasagna', 15, 50, 'https://hips.hearstapps.com/vidthumb/images/180820-bookazine-delish-01280-1536610916.jpg?crop=1.00xw%3A0.846xh%3B0.00160xw%2C0.154xh&resize=480%3A270'),
+	(4, 'Bacalhau com natas', 10, 20, 'https://www.vaqueiro.pt/-/media/project/upfield/whitelabels/vaqueiro-pt/assets/recipes/sync-images/289bc81e-7743-49f3-a13a-56481c563d3d.jpg?w=1200');
 /*!40000 ALTER TABLE `prato` ENABLE KEYS */;
+
+-- A despejar estrutura para tabela restaurante.reserva
+CREATE TABLE IF NOT EXISTS `reserva` (
+  `id_reserva` int(10) NOT NULL AUTO_INCREMENT,
+  `num_pessoas` smallint(6) DEFAULT NULL,
+  `id_cliente` int(10) NOT NULL,
+  `id_mesa` int(11) NOT NULL,
+  `hora` date NOT NULL DEFAULT '1111-11-11',
+  PRIMARY KEY (`id_reserva`),
+  KEY `FK_reserva_cliente` (`id_cliente`),
+  KEY `FK_reserva_mesa` (`id_mesa`),
+  CONSTRAINT `FK_reserva_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_reserva_mesa` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id_mesa`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+-- A despejar dados para tabela restaurante.reserva: ~5 rows (aproximadamente)
+DELETE FROM `reserva`;
+/*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
+INSERT INTO `reserva` (`id_reserva`, `num_pessoas`, `id_cliente`, `id_mesa`, `hora`) VALUES
+	(1, 6, 2, 5, '1111-11-11'),
+	(2, 44, 2, 6, '1111-11-11'),
+	(3, 8, 3, 5, '1111-11-11'),
+	(4, NULL, 1, 1, '1111-11-11'),
+	(5, NULL, 1, 1, '1111-11-11');
+/*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
 
 -- A despejar estrutura para tabela restaurante.stock
 CREATE TABLE IF NOT EXISTS `stock` (
-  `id_stock` int(5) NOT NULL,
+  `id_stock` int(5) NOT NULL AUTO_INCREMENT,
   `nome` varchar(10) DEFAULT NULL,
   `quantidade` int(10) DEFAULT NULL,
-  `preco` varchar(20) DEFAULT NULL,
-  `validade` date DEFAULT NULL,
-  `id_fornecedor` int(10) DEFAULT NULL,
+  `preco` float DEFAULT NULL,
+  `validade` date NOT NULL DEFAULT '1111-11-11',
+  `id_fornecedor` int(10) NOT NULL,
   PRIMARY KEY (`id_stock`) USING BTREE,
   KEY `FK_stock_fornecedor` (`id_fornecedor`),
   CONSTRAINT `FK_stock_fornecedor` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
--- A despejar dados para tabela restaurante.stock: ~3 rows (aproximadamente)
+-- A despejar dados para tabela restaurante.stock: ~2 rows (aproximadamente)
 DELETE FROM `stock`;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
 INSERT INTO `stock` (`id_stock`, `nome`, `quantidade`, `preco`, `validade`, `id_fornecedor`) VALUES
-	(1, 'Fiambre', 30, '0.20', '2021-12-02', 1),
-	(2, 'Queijo', 22, '0.23', '2021-08-22', 2),
-	(3, 'Massa', 55, '0.05', '2021-12-31', 2);
+	(1, 'Fiambre', 30, 0.2, '2021-12-02', 1),
+	(2, 'Manteiga', 100, 1.2, '2021-09-06', 1);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
-
--- A despejar estrutura para tabela restaurante.stock_prato
-CREATE TABLE IF NOT EXISTS `stock_prato` (
-  `id_prato` int(10) DEFAULT NULL,
-  `id_stock` int(10) DEFAULT NULL,
-  KEY `FK_stock_prato_prato` (`id_prato`),
-  KEY `FK_stock_prato_stock` (`id_stock`),
-  CONSTRAINT `FK_stock_prato_prato` FOREIGN KEY (`id_prato`) REFERENCES `prato` (`id_prato`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_stock_prato_stock` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- A despejar dados para tabela restaurante.stock_prato: ~0 rows (aproximadamente)
-DELETE FROM `stock_prato`;
-/*!40000 ALTER TABLE `stock_prato` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stock_prato` ENABLE KEYS */;
 
 -- A despejar estrutura para tabela restaurante.takeaway
 CREATE TABLE IF NOT EXISTS `takeaway` (
   `id_takeaway` int(10) NOT NULL AUTO_INCREMENT,
-  `valor` float DEFAULT NULL,
-  `iva` float DEFAULT NULL,
-  `valor(iva)` float DEFAULT NULL,
-  `id_cliente` int(10) DEFAULT NULL,
+  `id_cliente` int(10) NOT NULL,
+  `id_prato` int(10) NOT NULL,
   PRIMARY KEY (`id_takeaway`) USING BTREE,
   KEY `FK_takeaway_cliente` (`id_cliente`),
-  CONSTRAINT `FK_takeaway_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+  KEY `FK_takeaway_prato` (`id_prato`),
+  CONSTRAINT `FK_takeaway_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_takeaway_prato` FOREIGN KEY (`id_prato`) REFERENCES `prato` (`id_prato`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 
--- A despejar dados para tabela restaurante.takeaway: ~2 rows (aproximadamente)
+-- A despejar dados para tabela restaurante.takeaway: ~3 rows (aproximadamente)
 DELETE FROM `takeaway`;
 /*!40000 ALTER TABLE `takeaway` DISABLE KEYS */;
-INSERT INTO `takeaway` (`id_takeaway`, `valor`, `iva`, `valor(iva)`, `id_cliente`) VALUES
-	(1, 25, 0.23, 27, 1),
-	(2, 30, 0.23, 33, 3);
+INSERT INTO `takeaway` (`id_takeaway`, `id_cliente`, `id_prato`) VALUES
+	(1, 1, 2),
+	(2, 3, 3),
+	(7, 2, 2);
 /*!40000 ALTER TABLE `takeaway` ENABLE KEYS */;
-
--- A despejar estrutura para tabela restaurante.takeaway_prato
-CREATE TABLE IF NOT EXISTS `takeaway_prato` (
-  `id_prato` int(10) DEFAULT NULL,
-  `id_takeaway` int(10) DEFAULT NULL,
-  KEY `FK_takeaway_prato_prato` (`id_prato`),
-  KEY `FK_takeaway_prato_takeaway` (`id_takeaway`),
-  CONSTRAINT `FK_takeaway_prato_prato` FOREIGN KEY (`id_prato`) REFERENCES `prato` (`id_prato`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_takeaway_prato_takeaway` FOREIGN KEY (`id_takeaway`) REFERENCES `takeaway` (`id_takeaway`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- A despejar dados para tabela restaurante.takeaway_prato: ~2 rows (aproximadamente)
-DELETE FROM `takeaway_prato`;
-/*!40000 ALTER TABLE `takeaway_prato` DISABLE KEYS */;
-INSERT INTO `takeaway_prato` (`id_prato`, `id_takeaway`) VALUES
-	(1, 1),
-	(2, 2);
-/*!40000 ALTER TABLE `takeaway_prato` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
