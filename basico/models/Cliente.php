@@ -13,7 +13,7 @@ use Yii;
  * @property int|null $nif
  * @property string|null $rua
  * @property int|null $nporta
- * @property string|null $codpostal
+ * @property string $codpostal
  * @property int|null $telefone
  * @property string|null $email
  *

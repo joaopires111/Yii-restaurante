@@ -39,13 +39,14 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             //sem login
-            ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Pratos', 'url' => ['/prato2/index']],            
+            ['label' => 'Inicio', 'url' => ['/site/index'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'Pratos', 'url' => ['/prato2/index'], 'visible' => Yii::$app->user->isGuest],            
             //admin
             ['label' => 'Utilizadores', 'url' => ['/backenduser'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],
             ['label' => 'Clientes', 'url' => ['/cliente'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],
             ['label' => 'Funcionarios', 'url' => ['/funcionario'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],
-            ['label' => 'Fornecedores', 'url' => ['/fornecedor'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],            
+            ['label' => 'Fornecedores', 'url' => ['/fornecedor'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],
+            ['label' => 'Codigo Postal', 'url' => ['/codpostal'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],    
             ['label' => 'Reservas de Mesa', 'url' => ['/reserva'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],            
             ['label' => 'Mesas', 'url' => ['/mesa'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],
             ['label' => 'Pedidos Takeaway', 'url' => ['/takeaway'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="gerente" ],
@@ -61,9 +62,6 @@ AppAsset::register($this);
             ['label' => 'Pratos', 'url' => ['/prato'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="funcionario" ],
             ['label' => 'Stock', 'url' => ['/stock'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="funcionario" ],
     
-            // Como deveria ter sido feito  
-           // ['label' => 'Perfil', 'url' => ['/backenduser/view', 'id' => Yii::$app->user->identity->id], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->cargo=="cliente" ],   
-
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
