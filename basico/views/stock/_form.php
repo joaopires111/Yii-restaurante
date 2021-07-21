@@ -19,9 +19,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'preco')->textInput() ?>
 
     <?= $form->field($model, 'validade')->textInput() ?>
-
+    <p>Formato: AAAA-MM-DD</p>
     <?= $form->field($model, 'id_fornecedor')->textInput() ?>
-
+    <p>Sugestão: Abra a pagina fornecedores numa tab para verificar os disponiveis</p>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

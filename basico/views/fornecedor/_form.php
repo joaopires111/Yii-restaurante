@@ -19,7 +19,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'nporta')->textInput() ?>
 
     <?= $form->field($model, 'codpostal')->textInput(['maxlength' => true]) ?>
-
+    <p>Deverá ter o codigo postal já criado para introduzir neste campo.</p>
+    <p>Sugestão: Abra a pagina Código postal numa tab para verificar os disponiveis</p>
     <?= $form->field($model, 'telefone')->textInput() ?>
 
     <div class="form-group">

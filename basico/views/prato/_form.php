@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'precovenda')->textInput() ?>
 
     <?= $form->field($model, 'image')->textarea(['rows' => 6]) ?>
-
+    <p>Introduza o link da imagem.</p>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

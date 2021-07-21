@@ -13,9 +13,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id_cliente')->textInput() ?>
-
+    <p>Sugestão: Abra a pagina clientes numa tab para verificar os disponiveis</p>
     <?= $form->field($model, 'id_prato')->textInput() ?>
-
+    <p>Sugestão: Abra a pagina pratos numa tab para verificar os disponiveis</p>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

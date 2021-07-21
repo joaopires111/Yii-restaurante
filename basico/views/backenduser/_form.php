@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cargo')->dropDownList([ 'gerente' => 'Gerente', 'funcionario' => 'Funcionario', 'cozinheiro' => 'Cozinheiro', ], ['prompt' => '']) ?>
-
+    <p>O cargo irá defenir quais funcionalidades o utilizador tem</p>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
